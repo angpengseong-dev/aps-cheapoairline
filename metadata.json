@@ -1,0 +1,6 @@
+{
+  "name": "Cheapo Air",
+  "description": "The world's premier ultra-frugal airline website, inspired by Singapore Airlines with high-flying luxury features converted into hilariously stingy budget options.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
