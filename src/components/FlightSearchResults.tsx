@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Plane, Clock, ShieldAlert, ArrowRight, CheckCircle2, ChevronDown, ChevronUp, AlertCircle, Info, Sparkles } from 'lucide-react';
 import { Flight, CabinClass } from '../types';
+import { useTheme } from '../context/ThemeContext';
 
 interface FlightSearchResultsProps {
   flights: Flight[];
@@ -24,6 +25,7 @@ export const FlightSearchResults: React.FC<FlightSearchResultsProps> = ({
   onSelectFlight,
 }) => {
   const [expandedFlightId, setExpandedFlightId] = useState<string | null>(null);
+  const { classes } = useTheme();
 
   const getCurrencySymbol = () => {
     if (currency === 'MYR') return 'RM';
@@ -73,18 +75,18 @@ export const FlightSearchResults: React.FC<FlightSearchResultsProps> = ({
     <div className="max-w-5xl mx-auto py-10 px-4 sm:px-6">
       
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-gray-200">
+      <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 pb-4 border-b ${classes.border}`}>
         <div>
-          <div className="flex items-center space-x-2 text-xs font-extrabold uppercase text-amber-700 tracking-wider">
+          <div className="flex items-center space-x-2 text-xs font-extrabold uppercase text-amber-600 tracking-wider">
             <Sparkles className="w-4 h-4" />
             <span>Search Results • {getCabinLabel()}</span>
           </div>
-          <h2 className="text-2xl font-black text-[#001d4a] font-serif uppercase tracking-tight">
+          <h2 className={`text-2xl font-black ${classes.textHeading} font-serif uppercase tracking-tight`}>
             Flights from <span className="text-amber-600">{origin}</span> to <span className="text-amber-600">{destination}</span>
           </h2>
         </div>
-        <div className="bg-amber-100 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center space-x-1.5">
-          <Info className="w-4 h-4 text-amber-700" />
+        <div className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center space-x-1.5 ${classes.badge}`}>
+          <Info className="w-4 h-4 text-amber-600 shrink-0" />
           <span>Fares exclude mandatory breathing tax & seat pad lease</span>
         </div>
       </div>
@@ -98,7 +100,7 @@ export const FlightSearchResults: React.FC<FlightSearchResultsProps> = ({
           return (
             <div
               key={flight.id}
-              className="bg-white rounded-2xl border-2 border-gray-100 hover:border-amber-400/80 shadow-md hover:shadow-xl transition-all overflow-hidden"
+              className={`rounded-2xl ${classes.card} hover:border-amber-400/80 transition-all overflow-hidden`}
             >
               {/* Main Card Content */}
               <div className="p-5 sm:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">

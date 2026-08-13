@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Award, QrCode, Sparkles, Check, Calculator, Gift, ArrowRight } from 'lucide-react';
 import { LOYALTY_TIERS } from '../data/mockData';
+import { useTheme } from '../context/ThemeContext';
 
 export const KiamSiapClub: React.FC = () => {
+  const { classes } = useTheme();
   const [milesToCalc, setMilesToCalc] = useState(10000);
   const [memberPoints, setMemberPoints] = useState(2450);
 
@@ -22,14 +24,14 @@ export const KiamSiapClub: React.FC = () => {
       
       {/* Header */}
       <div className="text-center space-y-2">
-        <span className="inline-flex items-center space-x-1.5 bg-amber-100 text-amber-900 border border-amber-300 px-3 py-1 rounded-full text-xs font-bold">
-          <Award className="w-3.5 h-3.5 text-amber-700" />
+        <span className={`inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold ${classes.badge}`}>
+          <Award className="w-3.5 h-3.5 text-amber-600" />
           <span>Singapore Airlines KrisFlyer Parody</span>
         </span>
-        <h2 className="text-3xl sm:text-4xl font-black text-[#001d4a] font-serif uppercase tracking-tight">
+        <h2 className={`text-3xl sm:text-4xl font-black ${classes.textHeading} font-serif uppercase tracking-tight`}>
           The KiamSiap Rewards Club
         </h2>
-        <p className="text-sm text-gray-600 max-w-xl mx-auto">
+        <p className={`text-sm ${classes.textMuted} max-w-xl mx-auto`}>
           Every mile flown earns you fractions of a peanut, free air breathing permissions, and priority eye contact!
         </p>
       </div>

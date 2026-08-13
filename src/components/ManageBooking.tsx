@@ -3,6 +3,7 @@ import { Search, UserCheck, Scale, QrCode, ShieldAlert, Sparkles, AlertCircle, A
 import { Booking } from '../types';
 import { BoardingPass } from './BoardingPass';
 import { SAMPLE_FLIGHTS } from '../data/mockData';
+import { useTheme } from '../context/ThemeContext';
 
 interface ManageBookingProps {
   userBookings: Booking[];
@@ -10,6 +11,7 @@ interface ManageBookingProps {
 }
 
 export const ManageBooking: React.FC<ManageBookingProps> = ({ userBookings, currency }) => {
+  const { classes } = useTheme();
   const [searchRef, setSearchRef] = useState('CHP8888');
   const [lastName, setLastName] = useState('Tan');
   const [foundBooking, setFoundBooking] = useState<Booking | null>({
@@ -92,46 +94,46 @@ export const ManageBooking: React.FC<ManageBookingProps> = ({ userBookings, curr
       
       {/* Search Header */}
       <div className="text-center space-y-2">
-        <span className="inline-flex items-center space-x-1.5 bg-amber-100 text-amber-900 border border-amber-300 px-3 py-1 rounded-full text-xs font-bold">
-          <UserCheck className="w-3.5 h-3.5 text-amber-700" />
+        <span className={`inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold ${classes.badge}`}>
+          <UserCheck className="w-3.5 h-3.5 text-amber-600" />
           <span>Self-Service Portal</span>
         </span>
-        <h2 className="text-3xl font-black text-[#001d4a] font-serif uppercase tracking-tight">
+        <h2 className={`text-3xl font-black ${classes.textHeading} font-serif uppercase tracking-tight`}>
           Manage Booking & Digital Check-in
         </h2>
-        <p className="text-sm text-gray-600 max-w-xl mx-auto">
+        <p className={`text-sm ${classes.textMuted} max-w-xl mx-auto`}>
           Retrieve your Cheapo Air itinerary, complete your mandatory weight check, and print your boarding pass!
         </p>
       </div>
 
       {/* Lookup Card */}
-      <div className="bg-white rounded-2xl p-6 shadow-xl border border-gray-200">
+      <div className={`rounded-2xl p-6 ${classes.card}`}>
         <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
           <div>
-            <label className="block text-xs font-extrabold uppercase text-gray-500 mb-1">Booking Reference</label>
+            <label className={`block text-xs font-extrabold uppercase ${classes.textMuted} mb-1`}>Booking Reference</label>
             <input
               type="text"
               placeholder="e.g. CHP8888"
               value={searchRef}
               onChange={(e) => setSearchRef(e.target.value.toUpperCase())}
-              className="w-full bg-gray-50 border border-gray-300 rounded-xl p-3 font-mono font-bold text-gray-900 focus:outline-none focus:border-amber-500 text-sm"
+              className={`w-full rounded-xl p-3 font-mono font-bold text-sm ${classes.input}`}
             />
           </div>
 
           <div>
-            <label className="block text-xs font-extrabold uppercase text-gray-500 mb-1">Passenger Family Name</label>
+            <label className={`block text-xs font-extrabold uppercase ${classes.textMuted} mb-1`}>Passenger Family Name</label>
             <input
               type="text"
               placeholder="e.g. Tan"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              className="w-full bg-gray-50 border border-gray-300 rounded-xl p-3 font-bold text-gray-900 focus:outline-none focus:border-amber-500 text-sm"
+              className={`w-full rounded-xl p-3 font-bold text-sm ${classes.input}`}
             />
           </div>
 
           <button
             type="submit"
-            className="bg-[#001d4a] hover:bg-blue-900 text-amber-400 font-black text-sm px-6 py-3 rounded-xl shadow-lg flex items-center justify-center space-x-2 transition-all"
+            className={`${classes.buttonPrimary} px-6 py-3 rounded-xl flex items-center justify-center space-x-2 text-sm`}
           >
             <Search className="w-4 h-4" />
             <span>FIND BOOKING</span>

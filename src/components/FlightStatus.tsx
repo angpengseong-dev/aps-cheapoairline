@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Compass, RefreshCw, Plane, Gauge, ShieldAlert, Sparkles, AlertCircle } from 'lucide-react';
 import { MOCK_FLIGHT_STATUSES } from '../data/mockData';
+import { useTheme } from '../context/ThemeContext';
 
 export const FlightStatus: React.FC = () => {
+  const { classes } = useTheme();
   const [statuses, setStatuses] = useState(MOCK_FLIGHT_STATUSES);
   const [filterQuery, setFilterQuery] = useState('');
   const [lastRefreshed, setLastRefreshed] = useState('Just Now');
@@ -29,33 +31,33 @@ export const FlightStatus: React.FC = () => {
       
       {/* Title */}
       <div className="text-center space-y-2">
-        <span className="inline-flex items-center space-x-1.5 bg-amber-100 text-amber-900 border border-amber-300 px-3 py-1 rounded-full text-xs font-bold">
-          <Compass className="w-3.5 h-3.5 text-amber-700" />
+        <span className={`inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold ${classes.badge}`}>
+          <Compass className="w-3.5 h-3.5 text-amber-600" />
           <span>Real-Time Fleet Telemetry</span>
         </span>
-        <h2 className="text-3xl font-black text-[#001d4a] font-serif uppercase tracking-tight">
+        <h2 className={`text-3xl font-black ${classes.textHeading} font-serif uppercase tracking-tight`}>
           Cheapo Air Live Flight Tracker
         </h2>
-        <p className="text-sm text-gray-600 max-w-xl mx-auto">
+        <p className={`text-sm ${classes.textMuted} max-w-xl mx-auto`}>
           Monitor aircraft positions, gliding engine statuses, and fuel bargaining updates in real-time.
         </p>
       </div>
 
       {/* Control Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-4 rounded-2xl shadow-md border border-gray-200">
+      <div className={`flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl ${classes.card}`}>
         <input
           type="text"
           placeholder="Filter by Flight No. or City (e.g. CP 101, SIN)..."
           value={filterQuery}
           onChange={(e) => setFilterQuery(e.target.value)}
-          className="w-full sm:w-80 bg-gray-50 border border-gray-300 rounded-xl px-4 py-2.5 text-xs font-bold text-gray-900 focus:outline-none focus:border-amber-500"
+          className={`w-full sm:w-80 rounded-xl px-4 py-2.5 text-xs font-bold ${classes.input}`}
         />
 
         <div className="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-end">
-          <span className="text-xs text-gray-400 font-mono">Updated: {lastRefreshed}</span>
+          <span className={`text-xs ${classes.textMuted} font-mono`}>Updated: {lastRefreshed}</span>
           <button
             onClick={handleRefresh}
-            className="flex items-center space-x-2 bg-[#001d4a] hover:bg-blue-900 text-amber-400 font-bold text-xs px-4 py-2.5 rounded-xl shadow transition-all"
+            className={`${classes.buttonPrimary} px-4 py-2.5 rounded-xl text-xs flex items-center space-x-2`}
           >
             <RefreshCw className="w-3.5 h-3.5" />
             <span>REFRESH RADAR</span>
@@ -68,22 +70,22 @@ export const FlightStatus: React.FC = () => {
         {filtered.map((item) => (
           <div
             key={item.flightNumber}
-            className="bg-white rounded-2xl p-6 shadow-md border-2 border-gray-100 hover:border-amber-400 transition-all space-y-4"
+            className={`rounded-2xl p-6 ${classes.card} hover:border-amber-400 transition-all space-y-4`}
           >
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gray-100 pb-3">
+            <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b ${classes.border} pb-3`}>
               <div className="flex items-center space-x-3">
                 <span className="bg-[#001d4a] text-amber-400 font-mono font-black text-sm px-3 py-1 rounded-lg">
                   {item.flightNumber}
                 </span>
-                <span className="text-base font-black text-gray-900 uppercase">{item.route}</span>
+                <span className={`text-base font-black ${classes.textHeading} uppercase`}>{item.route}</span>
               </div>
 
               <span className={`text-xs font-extrabold px-3 py-1 rounded-full border ${
                 item.status.includes('Gliding')
-                  ? 'bg-blue-50 text-blue-900 border-blue-300'
+                  ? 'bg-blue-500/20 text-blue-300 border-blue-400/40'
                   : item.status.includes('On Time')
-                  ? 'bg-emerald-50 text-emerald-900 border-emerald-300'
-                  : 'bg-amber-50 text-amber-900 border-amber-300'
+                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-400/40'
+                  : 'bg-amber-500/20 text-amber-300 border-amber-400/40'
               }`}>
                 {item.status}
               </span>

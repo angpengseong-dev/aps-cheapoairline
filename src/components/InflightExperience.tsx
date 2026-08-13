@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Sparkles, Music, Volume2, Play, Pause, Gamepad2, ShoppingBag, Coffee, BookOpen, Smile, Check } from 'lucide-react';
 import { INFLIGHT_MENU } from '../data/mockData';
+import { useTheme } from '../context/ThemeContext';
 
 export const InflightExperience: React.FC = () => {
+  const { classes } = useTheme();
   const [isPlayingEngine, setIsPlayingEngine] = useState(false);
   const [cloudScore, setCloudScore] = useState(0);
   const [activeTab, setActiveTab] = useState<'entertainment' | 'dining' | 'shop'>('entertainment');
@@ -21,14 +23,14 @@ export const InflightExperience: React.FC = () => {
       
       {/* Title */}
       <div className="text-center space-y-2">
-        <span className="inline-flex items-center space-x-1.5 bg-amber-100 text-amber-900 border border-amber-300 px-3 py-1 rounded-full text-xs font-bold">
-          <Sparkles className="w-3.5 h-3.5 text-amber-700" />
+        <span className={`inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold ${classes.badge}`}>
+          <Sparkles className="w-3.5 h-3.5 text-amber-600" />
           <span>SQ KrisWorld Parody</span>
         </span>
-        <h2 className="text-3xl font-black text-[#001d4a] font-serif uppercase tracking-tight">
+        <h2 className={`text-3xl font-black ${classes.textHeading} font-serif uppercase tracking-tight`}>
           Cheapo World Inflight Experience
         </h2>
-        <p className="text-sm text-gray-600 max-w-xl mx-auto">
+        <p className={`text-sm ${classes.textMuted} max-w-xl mx-auto`}>
           Entertainment, Gourmet Bistro, and Duty-Free Shopping tailored for the ultra-frugal traveler.
         </p>
       </div>

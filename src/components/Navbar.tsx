@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Plane, Luggage, ShieldAlert, Award, Compass, ShoppingBag, Sparkles, UserCheck, Search, Menu, X, DollarSign } from 'lucide-react';
+import { Plane, Luggage, ShieldAlert, Award, Compass, ShoppingBag, Sparkles, UserCheck, Search, Menu, X, DollarSign, Sun, Moon, Zap } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 interface NavbarProps {
   activeTab: string;
@@ -17,6 +18,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenConcierge,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   const navItems = [
     { id: 'book', label: 'Book Flight', icon: Plane },
@@ -86,8 +88,48 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
           </nav>
 
-          {/* Right Actions: Currency & AI Assistant */}
-          <div className="hidden sm:flex items-center space-x-3">
+          {/* Right Actions: Theme, Currency & AI Assistant */}
+          <div className="hidden sm:flex items-center space-x-2">
+            {/* Theme Mode Selector */}
+            <div className="flex items-center bg-blue-950/80 border border-amber-500/30 rounded-lg p-0.5 text-xs">
+              <button
+                onClick={() => setTheme('light')}
+                title="Light Mode (Daylight Cabin)"
+                className={`flex items-center space-x-1 px-2 py-1 rounded text-[11px] font-bold transition-all ${
+                  theme === 'light'
+                    ? 'bg-amber-400 text-blue-950 shadow'
+                    : 'text-amber-200 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <Sun className="w-3.5 h-3.5" />
+                <span className="hidden md:inline">Light</span>
+              </button>
+              <button
+                onClick={() => setTheme('dark')}
+                title="Dark Mode (Night Flight)"
+                className={`flex items-center space-x-1 px-2 py-1 rounded text-[11px] font-bold transition-all ${
+                  theme === 'dark'
+                    ? 'bg-amber-400 text-blue-950 shadow'
+                    : 'text-amber-200 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <Moon className="w-3.5 h-3.5" />
+                <span className="hidden md:inline">Dark</span>
+              </button>
+              <button
+                onClick={() => setTheme('yellow')}
+                title="Cheapo Gold Mode (High-Vis Brutalist)"
+                className={`flex items-center space-x-1 px-2 py-1 rounded text-[11px] font-bold transition-all ${
+                  theme === 'yellow'
+                    ? 'bg-amber-400 text-blue-950 shadow'
+                    : 'text-amber-200 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <Zap className="w-3.5 h-3.5" />
+                <span className="hidden md:inline">Gold</span>
+              </button>
+            </div>
+
             {/* Currency Picker */}
             <div className="flex items-center bg-blue-950/80 border border-amber-500/30 rounded-lg p-1 text-xs">
               <DollarSign className="w-3.5 h-3.5 text-amber-400 ml-1" />
@@ -105,7 +147,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* AI Assistant Button */}
             <button
               onClick={onOpenConcierge}
-              className="flex items-center space-x-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-blue-950 font-bold px-3.5 py-2 rounded-lg text-xs shadow-md border border-amber-300/40 transform active:scale-95 transition-all"
+              className="flex items-center space-x-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-blue-950 font-bold px-3 py-1.5 rounded-lg text-xs shadow-md border border-amber-300/40 transform active:scale-95 transition-all"
             >
               <Sparkles className="w-4 h-4 animate-spin text-blue-950" />
               <span>Auntie AI Concierge</span>
@@ -155,17 +197,52 @@ export const Navbar: React.FC<NavbarProps> = ({
             );
           })}
           
-          <div className="pt-3 border-t border-white/10 flex items-center justify-between">
-            <span className="text-xs text-gray-300">Select Currency:</span>
-            <select
-              value={currency}
-              onChange={(e) => setCurrency(e.target.value)}
-              className="bg-[#002868] text-amber-300 border border-amber-400/40 rounded px-2 py-1 text-xs"
-            >
-              <option value="SGD">SGD ($)</option>
-              <option value="MYR">MYR (RM)</option>
-              <option value="USD">USD ($)</option>
-            </select>
+          <div className="pt-3 border-t border-white/10 space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-gray-300">Theme Mode:</span>
+              <div className="flex items-center bg-blue-950/80 border border-amber-500/30 rounded-lg p-0.5 text-xs">
+                <button
+                  onClick={() => setTheme('light')}
+                  className={`flex items-center space-x-1 px-2.5 py-1 rounded text-xs font-bold ${
+                    theme === 'light' ? 'bg-amber-400 text-blue-950' : 'text-amber-200'
+                  }`}
+                >
+                  <Sun className="w-3.5 h-3.5" />
+                  <span>Light</span>
+                </button>
+                <button
+                  onClick={() => setTheme('dark')}
+                  className={`flex items-center space-x-1 px-2.5 py-1 rounded text-xs font-bold ${
+                    theme === 'dark' ? 'bg-amber-400 text-blue-950' : 'text-amber-200'
+                  }`}
+                >
+                  <Moon className="w-3.5 h-3.5" />
+                  <span>Dark</span>
+                </button>
+                <button
+                  onClick={() => setTheme('yellow')}
+                  className={`flex items-center space-x-1 px-2.5 py-1 rounded text-xs font-bold ${
+                    theme === 'yellow' ? 'bg-amber-400 text-blue-950' : 'text-amber-200'
+                  }`}
+                >
+                  <Zap className="w-3.5 h-3.5" />
+                  <span>Gold</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-gray-300">Select Currency:</span>
+              <select
+                value={currency}
+                onChange={(e) => setCurrency(e.target.value)}
+                className="bg-[#002868] text-amber-300 border border-amber-400/40 rounded px-2 py-1 text-xs"
+              >
+                <option value="SGD">SGD ($)</option>
+                <option value="MYR">MYR (RM)</option>
+                <option value="USD">USD ($)</option>
+              </select>
+            </div>
           </div>
         </div>
       )}

@@ -11,8 +11,10 @@ import { CheapoConciergeAI } from './components/CheapoConciergeAI';
 import { Footer } from './components/Footer';
 import { SAMPLE_FLIGHTS } from './data/mockData';
 import { Flight, Booking, CabinClass } from './types';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 
-export default function App() {
+function MainApp() {
+  const { theme, classes } = useTheme();
   const [activeTab, setActiveTab] = useState('book');
   const [currency, setCurrency] = useState('SGD');
 
@@ -67,7 +69,7 @@ export default function App() {
   const displayedFlights = filteredFlights.length > 0 ? filteredFlights : SAMPLE_FLIGHTS;
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col font-sans text-gray-900 selection:bg-amber-400 selection:text-blue-950">
+    <div className={`min-h-screen ${classes.bg} flex flex-col font-sans transition-colors duration-300 selection:bg-amber-400 selection:text-blue-950`}>
       
       {/* Navbar */}
       <Navbar
@@ -140,5 +142,13 @@ export default function App() {
       />
 
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <MainApp />
+    </ThemeProvider>
   );
 }
